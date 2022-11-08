@@ -2,10 +2,10 @@ const Sequelize = require('sequelize');
 const dotenv = require('dotenv');
 
 dotenv.config({
-    path: './config_env/config.env'
+    path: './confi_env/config.env'
 })
-
-//console.log(process.env.DB_NAME)
+// console.log()
+// console.log(process.env.DB_NAME)
 
 //Defiir objeto sequelize de conexión 
 const sequelize = new Sequelize(

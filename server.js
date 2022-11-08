@@ -10,7 +10,7 @@ const userRouters = require('./routes/UsersRoutes')
 
 // establecer el archivo de confi (env tiene variables de entorno del proyecto no del sistema)
 dotenv.config({
-    path: './confi_env/confi.env'
+    path: './confi_env/config.env'
 })
 
 // 1 crear el objeto aplicacion 
