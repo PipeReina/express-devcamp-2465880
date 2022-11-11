@@ -3,23 +3,23 @@ const sequelize = require('../config/seq')
 //DataTypes
 const {DataTypes, ValidationError} = require('sequelize')
 // el modelo:
-const UserModel = require('../models/user')
+const ReviewsModel = require('../models/reviews')
 const e = require('express')
 //crear el objeto de usuario 
-const User = UserModel(sequelize,DataTypes)
+const Reviews = ReviewsModel(sequelize,DataTypes)
 
 
 
 
 
 //get (obtener datos Read)
- exports.traerUsers = async (req,res)=>{
+ exports.traerReviews = async (req,res)=>{
     try {
-        const users = await User.findAll();
+        const reviews = await Reviews.findAll();
         return res.status(200).json(
             {
                 "success":true,
-                "data" : users,
+                "data" : reviews,
             }
         )
     } catch (error) {
@@ -42,11 +42,11 @@ const User = UserModel(sequelize,DataTypes)
 
  //obtener recurso con id
 
- exports.traerUsersId = async (req,res)=>{
+ exports.traerReviewsId = async (req,res)=>{
     try {
-        const userId = await User.findByPk(req.params.id)
+        const ReviewsId = await Reviews.findByPk(req.params.id)
         //si usuario no existe
-        if(!userId){
+        if(!ReviewsId){
             res.status(422).json(
                 {
                     "success": false,
@@ -59,7 +59,7 @@ const User = UserModel(sequelize,DataTypes)
             res.status(200).json(
                 {
                     "success": true,
-"data": userId  
+"data": ReviewsId  
                 }
                )   
         }     
@@ -73,13 +73,13 @@ const User = UserModel(sequelize,DataTypes)
     }
  }
  // Post: crear un nuevo recurso
-exports.crearUsers = async (req,res)=>{
+exports.crearReviews = async (req,res)=>{
     try {
-        const newUsers = await User.create(req.body);
+        const newReviews = await Reviews.create(req.body);
         res.status(201).json(
            {
                "success" : true,
-               "data" : newUsers
+               "data" : newReviews
            }
        ) 
     } catch (error) {
@@ -102,11 +102,11 @@ exports.crearUsers = async (req,res)=>{
 }
 
 // // Put - Patch (actualizar)
-exports.actualizarUsers = async(req , res)=>{
+exports.actualizarReviews = async(req , res)=>{
     try {
         //consultar datos actualizados
-      const upUser = await User.findByPk(req.params.id)
-      if(!upUser){
+      const upReviews = await Reviews.findByPk(req.params.id)
+      if(!upReviews){
         //response de usuario no encontrado
         res.status(422).json(
             {
@@ -118,18 +118,18 @@ exports.actualizarUsers = async(req , res)=>{
            )   
        }else{
             //actualizar usuario por id
-            await User.update(req.body, {
+            await Reviews.update(req.body, {
                 where: {
                 id: req.params.id
                 }
             });
             //seleccionar usuario actualizado
               //consultar datos actualizados
-            const userAct = await User.findByPk(req.params.id)
+            const ReviewsAct = await Reviews.findByPk(req.params.id)
             //enviar response con usuario actualizado
             res.status(200).json({
                 "success" : true,
-                "data" :  userAct
+                "data" :  ReviewsAct
             })
        }
     } catch (error) {
@@ -141,13 +141,14 @@ exports.actualizarUsers = async(req , res)=>{
         })
     }
 }
+// // Delete (borrar)
 //DELETE: borrar un Usuario
-exports.borrarUsers = async (req , res)=>{
+exports.borrarReviews = async (req , res)=>{
     //buscar el usuario por id
     try {
-        const u = await User.findByPk(req.params.id)
+        const u = await Reviews.findByPk(req.params.id)
         // Borrar usuario 
-            await User.destroy({
+            await Reviews.destroy({
                 where: {
                 id: req.params.id
                 }

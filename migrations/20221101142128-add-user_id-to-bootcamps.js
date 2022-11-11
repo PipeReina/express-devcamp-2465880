@@ -4,7 +4,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-    await queryInterface.addColumn('bootcamps', 'user_id',{
+    await queryInterface.addColumn('bootcamp', 'user_id',{
       type: Sequelize.INTEGER,
       references:{
         model: 'users',
@@ -18,7 +18,7 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
 
-    await queryInterface.removeColumn('bootcamps', 'user_id',);
+    await queryInterface.removeColumn('bootcamp', 'user_id',);
      
   }
 };
